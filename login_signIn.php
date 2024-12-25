@@ -91,7 +91,44 @@ if($dbsave==false){
 }
 }
 
+$n=0;
+$checkDBpasswd=false;
 
+if(isset($_POST['lemail']) && isset($_POST['lpassword'])){
+    $server="localhost";
+    $username="root";
+    $password="";
+    $dbname="pulse_rate";
+      
+      $con=mysqli_connect($server,$username,$password,$dbname);
+      if(!$con){
+          echo '<h1 style="display:flex;justify-content:center;align-items:center;padding:10% 10px;">Check Your connection! </h1>';
+      }
+      $email=$_POST['lemail'];
+      $password=$_POST['lpassword'];
+      $sqlData="SELECT * FROM `login`  WHERE `email`='$email' AND `password`='$password'";
+      $result=$con->query($sqlData);
+      if($result->num_rows >0){
+          $login_success=true;
+        }else{
+            $sqlMail="SELECT * FROM `login`  WHERE `email`='$email'";
+        $res_mail=$con->query($sqlMail);
+        if($res_mail->num_rows>0){
+            $checkDBpasswd=true;
+        }else{
+            $checkDBpasswd=false;
+            $choose=1;
+            if($n>2){
+                header("Location,index.php");
+            }
+            $n++;
+        }
+           
+        }
+      $con->close();
+  }else{
+    $n++;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,16 +158,17 @@ if($dbsave==false){
             align-items: center;
         }
         label{
-            font-size: 25px;
-            font-weight: 600;
+            font-size: 22px;
+            font-weight:550;
             margin: 20px;
         }
         .btn{
             width: 50%;
             padding:10px;
             margin: 10px;
-            font-size: <?php if($choose==0){ echo '20px';}else{echo '16px';}?>;
-            /* font-size: 20px; */
+            font-size: <?php if($choose==0){ echo '16px';}else{echo '14px';}?>;
+            border: 1px solid black;
+            border-radius:5px;
         }
         #img{
             width:100%;
@@ -141,8 +179,10 @@ if($dbsave==false){
         }
         input{
             width:70%;
-            padding: 15px;
+            padding: 10px;
             margin: 10px;
+            outline-color:black;
+            border:1px solid black
         }
         #login_create_account{
 display: <?php if($choose==0){ echo 'flex';}else{echo 'none';}?>;
@@ -165,10 +205,11 @@ display: <?php if($choose==2){ echo 'flex';}else{echo 'none';}?>;
 <?php if($dbsave==true){echo "<h3 style='color:green'>Account Created</h3>";}?>
     </form>
 
-    <form method="post" id="login" action="admin.php">
+    <form method="post" id="login" action="login_entered.php">
         <input type="email" name="lemail" placeholder="Email">
         <input type="password" name="lpassword" placeholder="Password">
-        <button class="btn">Login</button>
+        <?php if($checkDBpasswd==false && $n>1){echo "<p style='color:red;text-align:center;'>Email or Password is worng </p>";$choose=1;}?>
+        <button class="btn" name="loginPage">Login</button>
     </form>
 
     <form method="post" id="create_account">
