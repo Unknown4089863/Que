@@ -1,3 +1,5 @@
+**By default if You download this repository, not show any content because some first need to add content by first create Account then login into it and if you upload content then it will show at both logined page and by default page i.e index.php**
+
 # Database: pulse_rate
 
 ## Tables
@@ -35,4 +37,3 @@
 | phone                | VARCHAR(10) | Phone number of the contact                                                                          |
 | other                | TEXT        | Additional information about the contact                                                                |
 | time                 | TIMESTAMP   | Timestamp of when the contact record was created (Default: current_timestamp())                               |
-
