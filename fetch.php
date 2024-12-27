@@ -22,10 +22,11 @@ $arrFileType = [
 ];
 $fileExtension=strtolower(pathinfo($fileName,PATHINFO_EXTENSION));
 
-
+$mimeType = mime_content_type_from_extension($fileExtension);
 
 $fileBase64=base64_encode($file);
-$fileDataUri='data:.'.$fileExtension.';base64,'.$fileBase64;
+$fileDataUri='data:.'.$mimeType.';base64,'.$fileBase64;
+// $fileDataUri='data:.'.$fileExtension.';base64,'.$fileBase64;
 
   echo json_encode([
 "status" => "success",
