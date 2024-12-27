@@ -1,5 +1,4 @@
 <?php
-
 $login_success=false;
 
 if(isset($_POST['lemail']) && isset($_POST['lpassword'])){
@@ -309,11 +308,11 @@ $sa(logout, "onclick", 'window.location.href="index.php"');
         $sa(split2, "style", "overflow:auto;scrollbar-width:none")
 
         <?php
-   $server="localhost";
-   $username="root";
-   $password="";
+    $server="localhost";
+    $username="root";
+    $password="";
    $dbname="pulse_rate";
-$max=1;
+$max=0;
    $conn=mysqli_connect($server,$username,$password,$dbname);
    if (!$conn) {
      die("Connection failed: " . mysqli_connect_error());
@@ -342,11 +341,17 @@ $conn->close();
  }else{
   heading ="Fetch error";
 dbcontent ="Fail to fetch";
+fileName="error.jpg";
+imgFile="ERROR";
+CreaterEmail="";
  }
       }catch(error){
-        console.log(error);
+       
 heading ="ERROR";
 dbcontent ="Fail to fetch";
+fileName="error.jpg";
+imgFile="ERROR";
+CreaterEmail="";
       }
       let divis = $1("div")
       $sa(divis, "style", "background-color:white;padding:.2% 1%;margin:2% 0px;");
