@@ -289,7 +289,7 @@ dbcontent ="Fail to fetch";
  
 
     (async () => {
-        for (let i =<?php echo $max; ?> ; i >=1 ; i--) {
+         for (let i =<?php if($max){echo $max; }else{echo 0;}?> ; i >=1 ; i--) {
             $a(split2, await content(i));
         }
     })();  
